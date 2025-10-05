@@ -321,3 +321,4 @@ if __name__ == '__main__':
     print("\n⚡ Running Performance Tests...")
     avg_time = run_performance_tests()
     print(f"✅ Performance test completed. Average time: {avg_time:.2f}s")
+    print("All tests completed.")
