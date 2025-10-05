@@ -1,0 +1,25 @@
+User -> StreamlitUI: Submit Question
+StreamlitUI -> FreeContextualAgent: process_query(question)
+FreeContextualAgent -> FreeAIClient: analyze_intent(question)
+
+alt Intent Analysis
+    FreeAIClient -> GoogleGeminiAPI: Analyze intent
+    GoogleGeminiAPI --> FreeAIClient: Intent JSON
+else Fallback
+    FreeAIClient -> FreeAIClient: mock_intent_analysis(question)
+end
+
+FreeContextualAgent -> FreeSearchClient: query(web_query)
+FreeSearchClient -> SerperAPI: Search request
+SerperAPI --> FreeSearchClient: Search results
+
+FreeContextualAgent -> ChromaManager: hybrid_search(internal_query)
+ChromaManager -> ChromaDB: Vector search
+ChromaDB --> ChromaManager: Similar documents
+
+FreeContextualAgent -> FreeAIClient: synthesize_answer(all_data)
+FreeAIClient -> GoogleGeminiAPI: Generate answer
+GoogleGeminiAPI --> FreeAIClient: Formatted response
+
+FreeContextualAgent --> StreamlitUI: Research result
+StreamlitUI --> User: Display answer
