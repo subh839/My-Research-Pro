@@ -9,7 +9,7 @@ from chroma_manager import initialize_sample_data
 
 # Load environment variables
 load_dotenv()
-
+experimeting width at.
 # Configure Streamlit page
 st.set_page_config(
     page_title="AI Research Assistant Pro",
